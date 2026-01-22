@@ -38,7 +38,6 @@ func getUserUnit(r io.Reader) string {
 	fmt.Println("Please insert the unit of the temperature: ")
 
 	for {
-
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Println("Error reading input!")
@@ -47,8 +46,11 @@ func getUserUnit(r io.Reader) string {
 		input = strings.TrimSpace(input)
 
 		if len(input) > 0 {
-			userUnit := string(input[0])
-			return userUnit
+			Unit := string(input[0])
+			if Unit == "C" || Unit == "F" {
+				return Unit
+			}
+			fmt.Println("Invalid unit, please use F or C")
 		}
 	}
 }
