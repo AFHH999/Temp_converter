@@ -1,0 +1,39 @@
+name: Go CI
+
+on:
+    push:
+      branches: ["main"]
+
+    pull request:
+      branches: ["main"]
+
+jobs: 
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1- Get the code:
+      -uses: actions/checkout@v4
+
+    # 2- Install Golang
+      -name: Set up Golang
+      uses: actions/setup-go@v5
+      with: 
+      go-version: '1.25.x'
+      cache: true
+
+    # 3- Ensure dependencies are integrity-check:
+      -name: verify dependencies 
+      run: go mod verify
+
+    # 4- Static analysis
+      -name: Run vet
+      run: go vet ./...
+
+    # 5- Run tests
+      -name: Run tests
+      run: go test -race -v ./...
+
+    # 6- Verify the build works:
+      -name: build
+      run: make build
