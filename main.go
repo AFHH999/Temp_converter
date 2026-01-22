@@ -43,7 +43,7 @@ func getUserUnit(r io.Reader) string {
 			fmt.Println("Error reading input!")
 			continue
 		}
-		input = strings.TrimSpace(input)
+		input = strings.TrimSpace(strings.ToUpper(input))
 
 		if len(input) > 0 {
 			Unit := string(input[0])
